@@ -24,8 +24,9 @@ cell2=blkdiag(cell,cell,cell,cell,cell,cell,cell,cell,cell);
 CellCons=blkdiag(cell2,cell2,cell2,cell2,cell2,cell2,cell2,cell2,cell2);
 %boxes
 Z=[eye(9),eye(9),eye(9)];
-Z2=[Z,Z,Z];
-BoxCons=blkdiag(Z2,Z2,Z2,Z2,Z2,Z2,Z2,Z2,Z2);
+Z2=blkdiag(Z,Z,Z);
+Z3=[Z2,Z2,Z2];
+BoxCons=blkdiag(Z3,Z3,Z3);
 %now put it all together
 Aeq=[RowCons;ColCons;CellCons;BoxCons];
 
