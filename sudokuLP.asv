@@ -52,8 +52,7 @@ for row=1:1:r %loop through the given values and add to Aeq and beq
     %row=vals(row,1) col=vals(row,2) k=vals(row,3) assuming the user put the
     %matrix in right
     temp = zeros(1,numVars);
-    ind = find(lookup==str2double(strcat(num2str(vals(row,1)),num2str(vals(row,2)),num2str(vals(row,3)))));
-    temp(ind) = 1;
+    ind = fi
     Aeq=[Aeq;temp];
 end
 
