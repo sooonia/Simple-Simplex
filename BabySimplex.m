@@ -1,9 +1,4 @@
-path(path, 'C:\Users\Sonia\OneDrive\Documents\College\Grad Year\Lin Prog\Simple-Simplex')
-A= [2 1 0 ; 0 0 1];
-b = [8 10]';
-f= [-1 -2 -2];
-
-function [z,x] = BabySimplex(f, A, b)
+function [x,z] = BabySimplex(f, A, b)
 %solve a linear minimization problem by using a simple variation of the
 %simplex algorithm
 %Solves min(f' * x) subject to A*x <= b
@@ -29,10 +24,10 @@ fnew = [f,fslack];
 x0 = (inv(slack)*b);
 [numBasic,numNonBasic] = size(A);
 xPrev = [zeros(numNonBasic,1); x0]; 
+%Keep track of which variables are basic
 basic = [zeros(numNonBasic,1);ones(numBasic,1)];
 
-
-%--------------------------------------------------------------------------
+%Prepare for loop: Get first deltaX and Assume solution bounded 
 [nbi,optimal,deltaX] = getDeltaX(fnew, Anew, basic);
 bounded = true;
 
@@ -42,8 +37,10 @@ while(and(~optimal,bounded))
     lambda = getLambda(deltaX, xPrev);
     xNew = xPrev + lambda.*deltaX;
     
-    %Update Basis
+    %Update Basic variable tracker
+    %Will only change 1 variable from Basic to NonBasic
     tempBasis = basic;
+    %Updates to show new basic variable
     tempBasis(nbi) = 1;
     found = false;
     i=0;
@@ -73,10 +70,12 @@ if(bounded)
     z = f*x;
 else
     print("Unbounded");
+    x= inf;
+    z= -inf;
+end
+
 end
 
 
-
-end
 
 
