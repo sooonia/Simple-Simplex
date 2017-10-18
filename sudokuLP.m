@@ -17,12 +17,7 @@ for i=1:1:9
 end
 %vars
 %Xijk  i=row j=col k=intValueInCell
-%Xijk = 1 if value in cell i,j is = k
 %now set up constraints
-%x111+x121+x131 ... only one "1" can be in a row
-%do for all rows and integers
-%sum j=1 to 9 Xijk = 1 for all i,k 
-
 %rows
 row=[eye(9),eye(9),eye(9),eye(9),eye(9),eye(9),eye(9),eye(9),eye(9)];
 RowCons=blkdiag(row,row,row,row,row,row,row,row,row);
@@ -39,12 +34,9 @@ Z3=[Z2,Z2,Z2];
 BoxCons=blkdiag(Z3,Z3,Z3);
 %now put it all together
 Aeq=[RowCons;ColCons;CellCons;BoxCons];
-
 %add on the set value constraints and beq rows
 vals = input('Enter the given cells in matrix format ( [row,col,value;])\n');
-
 [r,c] = size(vals);
-
 for row=1:1:r %loop through the given values and add to Aeq and beq
     %easy part, add a 1 to the bottom of beq
     beq=[beq;1];
@@ -56,11 +48,8 @@ for row=1:1:r %loop through the given values and add to Aeq and beq
     temp(ind) = 1;
     Aeq=[Aeq;temp];
 end
-
-
 %find out the solution
 z = intlinprog(f,intcon,A,b,Aeq,beq,lb,ub);
-
 %print out the values for each cell
 AnsMatrix=zeros(9,9);
 place=1;
