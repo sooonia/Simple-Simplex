@@ -1,3 +1,4 @@
+path(path, 'C:\Users\Sonia\OneDrive\Documents\College\Grad Year\Lin Prog\Simple-Simplex')
 A= [2 1 0 ; 0 0 1];
 b = [8 10]';
 f= [-1 -2 -2];
@@ -38,10 +39,9 @@ bounded = true;
 %Keep iterating until found unbounded or stop improving
 while(and(~optimal,bounded))
     %Get new X
-    deltaX
     lambda = getLambda(deltaX, xPrev);
     xNew = xPrev + lambda.*deltaX;
-    xNew
+    
     %Update Basis
     tempBasis = basic;
     tempBasis(nbi) = 1;
@@ -70,7 +70,7 @@ end
 %return best Solution or print Unbounded
 if(bounded)
     x = xNew(1:length(f));
-    z = x * f';
+    z = f*x;
 else
     print("Unbounded");
 end
